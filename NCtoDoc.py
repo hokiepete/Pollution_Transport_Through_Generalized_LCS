@@ -13,7 +13,7 @@ import numpy as np
 #from mpl_toolkits.basemap import Basemap
 f = open('NC_MetaData.doc', 'w')
 ncfile='subset_wrfout_d01_2011-07-01_00_00_00'
-#ncfile="wrfout.nc"
+ncfile="hosiendata.nc"
 root = Dataset(ncfile,'r') #read the data
 
 #Query number of dimensions
@@ -53,7 +53,7 @@ for var in vars:
     #a = vars[var][0:23]
     #f.write(a)
 f.close()
-
+root.close()
 '''
 varshape = vars["vgrid2"].shape
 latitude=varshape[0]
