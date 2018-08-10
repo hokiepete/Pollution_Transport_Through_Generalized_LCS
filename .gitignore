@@ -1,3 +1,10 @@
 
 subset_wrfout_d01_2011-07-01_00_00_00
 subset_wrfout_d01_2011-07-02_00_00_00
+ftle_80m.nc
+ftle_810mb.nc
+ftle_80m.nc
+ftle_810mb.nc
+hosiendata.nc
+*.nc
+*.nc

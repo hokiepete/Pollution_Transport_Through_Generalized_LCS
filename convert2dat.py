@@ -1,43 +1,11 @@
 from netCDF4 import Dataset
-import wrf
 import numpy as np
 #from mpl_toolkits.basemap import interp
 from scipy import interpolate
-def cot(th):
-    return 1.0/np.tan(th)
-
-def sec(th):
-    return 1.0/np.cos(th)
-
-def deg2rad(deg):
-    return deg*np.pi/180.0
-
-def rad2deg(rad):
-    return rad*180.0/np.pi
-
-def lonlat2km(reflon,reflat,lon,lat ):
-    #LONLAT2KM Summary of this function goes here
-    #   Uses Lambert Conformal Projection
-    #stdlat1  =  deg2rad(30)
-    #stdlat2  =  deg2rad(60)
-    stdlat1  =  deg2rad(40)
-    stdlat2  =  deg2rad(42)
-    R=6371
-    reflon = deg2rad(reflon)
-    reflat = deg2rad(reflat)
-    lon = deg2rad(lon)
-    lat = deg2rad(lat)
-    n = np.log(np.cos(stdlat1)*sec(stdlat2)) / np.log(np.tan(0.25*np.pi+0.5*stdlat2)*cot(0.25*np.pi+0.5*stdlat1))
-    F=(np.cos(stdlat1)*(np.tan(0.25*np.pi+0.5*stdlat1)**n))/n
-    p0 = R*F*(cot(0.25*np.pi+0.5*reflat)**n)
-    p = R*F*(cot(0.25*np.pi+0.5*lat)**n)
-    th = n*(lon-reflon)
-    x=p*np.sin(th)
-    y=p0-p*np.cos(th)
-    return x,y
-
-
+import mapping_functions as mf
+    
 height_level = 17 #0.81 eta level
+height_level = 3 #roughly 80 m above ground level
 grid_spacing = 12 #km
 
 tdim = 25
@@ -45,37 +13,46 @@ xdim = 102
 ydim = 82
 
 root = Dataset('subset_wrfout_d01_2011-07-01_00_00_00','r')
+cen_lat = getattr(root,'CEN_LAT')
+cen_lon = getattr(root,'CEN_LON')
+true_lat1 = getattr(root,'TRUELAT1')
+true_lat2 = getattr(root,'TRUELAT2')
+ref_lat = getattr(root,'MOAD_CEN_LAT')
+ref_lon = getattr(root,'STAND_LON')
 vars = root.variables
 u = vars['U'][:,height_level,:,:]
 v = vars['V'][:,height_level,:,:]
-lat = vars['XLAT'][0,:,:]
-lon = vars['XLONG'][0,:,:]
+lat_in = vars['XLAT'][0,:,:]
+lon_in = vars['XLONG'][0,:,:]
 root.close()
 
 root = Dataset('subset_wrfout_d01_2011-07-02_00_00_00','r')
 vars = root.variables
 u = np.concatenate((u,vars['U'][:,height_level,:,:]))
 v = np.concatenate((v,vars['V'][:,height_level,:,:]))
-latin = np.concatenate((lat,vars['XLAT'][0,:,:]))
-lonin = np.concatenate((lon,vars['XLONG'][0,:,:]))
+#latin = np.concatenate((lat,vars['XLAT'][0,:,:]))
+#lonin = np.concatenate((lon,vars['XLONG'][0,:,:]))
 root.close()
-u = wrf.destagger(u[:25,:,:],2)
-v = wrf.destagger(v[:25,:,:],1)
+u = mf.unstagger(u[:25,:,:],2)
+v = mf.unstagger(v[:25,:,:],1)
 #latin = lat[:25,:,:]
 #longin = lon[:25,:,:]
-
+'''
 xin = np.linspace(-grid_spacing*(xdim-1)/2,grid_spacing*(xdim-1)/2,xdim)
 yin = np.linspace(-grid_spacing*(ydim-1)/2,grid_spacing*(ydim-1)/2,ydim)
 xin, yin = np.meshgrid(xin,yin)
+'''
+xin,yin = mf.lonlat2km(ref_lon,ref_lat,lon_in,lat_in,true_lat1,true_lat2)
 
-
-lat2file = np.linspace(np.min(lat),np.max(lat),(ydim-1)*4+1)
-lon2file = np.linspace(np.min(lon),np.max(lon),(xdim-1)*4+1)
+lat2file = np.linspace(np.min(lat_in),np.max(lat_in),(ydim-1)*4+1)
+lon2file = np.linspace(np.min(lon_in),np.max(lon_in),(xdim-1)*4+1)
 xodim = lon2file.shape[0]
 yodim = lat2file.shape[0]
 lonout, latout = np.meshgrid(lon2file,lat2file)
 
-xout,yout = lonlat2km(0.5*(np.min(lon)+np.max(lon)),0.5*(np.min(lat)+np.max(lat)),lonout,latout)
+#xout,yout = mf.lonlat2km(0.5*(np.min(lon)+np.max(lon)),0.5*(np.min(lat)+np.max(lat)),lonout,latout,true_lat1,true_lat2)
+xout,yout = mf.lonlat2km(ref_lon,ref_lat,lonout,latout,true_lat1,true_lat2)
+
 uout = np.empty([tdim,yodim*xodim])
 vout = np.empty([tdim,yodim*xodim])
 
@@ -91,7 +68,7 @@ dim = uout.shape
 timeout = np.arange(tdim)/24.0
 land = np.zeros(dim,dtype=int)
 
-print dim
+print(dim)
 dataset = Dataset('hosiendata.nc', mode='w', format='NETCDF4_CLASSIC') 
 lat = dataset.createDimension('lat',dim[1])
 lon = dataset.createDimension('lon',dim[2])

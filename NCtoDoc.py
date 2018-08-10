@@ -13,7 +13,7 @@ import numpy as np
 #from mpl_toolkits.basemap import Basemap
 f = open('NC_MetaData.doc', 'w')
 ncfile='subset_wrfout_d01_2011-07-01_00_00_00'
-ncfile="hosiendata.nc"
+#ncfile="hosiendata.nc"
 root = Dataset(ncfile,'r') #read the data
 
 #Query number of dimensions
