@@ -183,6 +183,25 @@ m.quiver(lon[::5,::5],lat[::5,::5],u[::5,::5],v[::5,::5],latlon=True)
 ridge = m.contour(lon,lat,adirdiv,levels=0,latlon=True,colors='blue')
 ridge = m.contour(lon,lat,rdirdiv,levels=0,latlon=True,colors='red')
 #ridge = m.contour(lon,lat,det,levels=0,latlon=True)
+ax = plt.gca()
+def format_coord(x, y):
+    return 'x={0[0]:.4f}, y={0[1]:.4f}'.format(m(x, y, inverse = True))
+ax.format_coord = format_coord
+r=20#km
+theta = np.arange(0,2*np.pi,0.1)
+x = r*np.cos(theta)
+y = r*np.sin(theta)
+#x = x+967075/500
+#y = y-694557/1000
+x,y = mf.km2lonlat(-80.3136,33.5022,x,y,true_lat1,true_lat2)
+m.scatter(x,y,latlon=True)
+import csv
+v = np.stack((x,y),axis=1)
+with open("tracers.txt", "w") as f:
+    writer = csv.writer(f)
+    for row in v:
+        writer.writerow(row)
+    f.close()
 
 m.drawcoastlines()
 m.drawstates()
@@ -190,6 +209,37 @@ parallels = np.arange(round(lat_min,0),lat_max+2,2)
 meridians = np.arange(round(lon_max,0),lon_min-2,-2)
 m.drawparallels(parallels,labels=[1,0,0,0],fontsize=10)
 m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=10)
+'''
+46
+v = ridge.collections[0].get_paths()[40].vertices
+x,y = m(v[:,0],v[:,1],inverse=True)
+v = np.stack((x,y),axis=1)
+with open("ridge.txt", "w", newline='') as f:
+    writer = csv.writer(f)
+    for row in v:
+        writer.writerow(row)
+    f.close()
+
+
+''
+plt.close('all')
+pp = ridge.collections[0].get_paths()
+for p in range(len(pp)):
+    v = pp[p].vertices
+    x = v[:,0]
+    y = v[:,1]
+    if x.size > 10:
+        m.plot(x,y)#, latlon=True)
+        m.drawcoastlines()
+        plt.title('{:03d}'.format(p))
+        plt.savefig('{:03d}.png'.format(p))
+        plt.close('all')
+        
+plt.show()        
+#'''
+
+
+
 
 '''
 t=1
