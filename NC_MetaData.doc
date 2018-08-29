@@ -1,4 +1,4 @@
-The # of dimensions = 10
+The # of dimensions = 16
 Dimension[Time] = 24
 Dimension[DateStrLen] = 19
 Dimension[south_north] = 82
@@ -9,6 +9,12 @@ Dimension[west_east_stag] = 103
 Dimension[south_north_stag] = 83
 Dimension[land_cat_stag] = 40
 Dimension[soil_layers_stag] = 2
+Dimension[ncl10] = 24
+Dimension[ncl11] = 82
+Dimension[ncl12] = 102
+Dimension[ncl13] = 24
+Dimension[ncl14] = 82
+Dimension[ncl15] = 102
 The # of attributes = 127
 Global_Attribute[TITLE] =  OUTPUT FROM WRF V3.8 MODEL
 Global_Attribute[START_DATE] = 2011-06-30_00:00:00
@@ -137,7 +143,7 @@ Global_Attribute[ISICE] = 15
 Global_Attribute[ISURBAN] = 13
 Global_Attribute[ISOILWATER] = 14
 Global_Attribute[history] = Created with subset_wrfout_nco.csh
-The # of variables = 65
+The # of variables = 70
 ---------- variable Times ----------
 shape = (24, 19)
 dimension[Time] = 24
@@ -922,3 +928,42 @@ attribute[description] = LAND MASK (1 FOR LAND, 0 FOR WATER)
 attribute[units] = 
 attribute[stagger] = 
 attribute[coordinates] = XLONG XLAT XTIME
+---------- variable Q ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 3
+attribute[units] = kg/m2
+attribute[long_name] = Vertically Integrated Water Vapor
+attribute[sum_op_ncl] = dim_sum_n over dimension(s): bottom_top
+---------- variable UQ ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 3
+attribute[units] = kg/m2/s
+attribute[long_name] = eastern water vapor flux
+attribute[sum_op_ncl] = dim_sum_n over dimension(s): bottom_top
+---------- variable VQ ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 3
+attribute[units] = kg/m2/s
+attribute[long_name] = northern water vapor flux
+attribute[sum_op_ncl] = dim_sum_n over dimension(s): bottom_top
+---------- variable UQ_Q ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 0
+---------- variable VQ_Q ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 0

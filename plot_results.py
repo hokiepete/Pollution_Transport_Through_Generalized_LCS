@@ -11,6 +11,7 @@ xdim = 405
 ydim = 325
 tstart = calendar.timegm(time.strptime('Jun 1, 2017 @ 00:00:00 UTC', '%b %d, %Y @ %H:%M:%S UTC'))
 ncfile="ftle_80m.nc"
+ncfile="ftle_vapor_flux.nc"
 root = Dataset(ncfile,'r') #read the data
 vars = root.variables #dictionary, all variables in dataset\
 print(vars.keys())
@@ -49,16 +50,15 @@ parallels = np.arange(round(lat_min,0),lat_max+2,2)
 meridians = np.arange(round(lon_max,0),lon_min-2,-2)
 m.drawparallels(parallels,labels=[1,0,0,0],fontsize=10)
 m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=10)
-
-for t in range(2,146):#146):#time)):
+#cs=m.pcolor(lon,lat,ftle[-1,:,:],latlon=True)#,levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),301),latlon=True)
+for t in range(1,146):#146):#time)):
     for c in cs.collections:
         c.remove()
-    #cs.set_array(np.ravel(ftle[:,:,t]))
+    #cs.set_array(np.ravel(ftle[-t,:,:]))
     #cs=m.contourf(lon,lat,ftle[:,:,-t],levels=np.linspace(ftle.min(axis=None),ftle.max(axis=None),301),latlon=True)
-
+    print(t)
     cs=m.contourf(lon,lat,ftle[-t,:,:],levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),301),latlon=True)
-    #plt.title("{0}".format(time[-t]),fontsize=18)
     hrs, mins = np.divmod((t-1)*10,60)
-    plt.title("Integration time = {0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
-    plt.savefig('SE_lcs_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
+    plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
+    plt.savefig('2-SE_lcs_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
 #'''
