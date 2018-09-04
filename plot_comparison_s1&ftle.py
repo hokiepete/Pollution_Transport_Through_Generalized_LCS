@@ -28,9 +28,8 @@ figwidth = 6
 FigSize=(figwidth, ydim/xdim*figwidth)
 
 
-root = Dataset('subset_wrfout_d01_2011-07-01_00_00_00','r')
-#root = Dataset('wrf_2011_07_01','r')
-#root = Dataset('subset_wrfout_d01_2011-07-02_00_00_00')
+#root = Dataset('subset_wrfout_d01_2011-07-01_00_00_00','r')
+root = Dataset('wrf_2011_07_01','r')
 cen_lat = getattr(root,'CEN_LAT')
 cen_lon = getattr(root,'CEN_LON')
 true_lat1 = getattr(root,'TRUELAT1')
@@ -49,7 +48,8 @@ lon = vars['XLONG'][0,:,:]
 root.close()
 checklon, checklat = mf.lonlat2km(ref_lon,ref_lat,lon,lat,true_lat1,true_lat2) 
 
-root = Dataset('subset_wrfout_d01_2011-07-02_00_00_00','r')
+#root = Dataset('subset_wrfout_d01_2011-07-02_00_00_00','r')
+root = Dataset('wrf_2011_07_02','r')
 vars = root.variables
 #Wind Velocity
 u = np.concatenate((u,vars['U'][:,height_level,:,:]))
@@ -129,7 +129,7 @@ m.drawmeridians(meridians,labels=[0,0,0,1],**tickfont)
 plt.yticks(**tickfont)
 plt.xticks(**tickfont)
 #plt.title("s$_{1}$ field",**titlefont)#fontsize=18)
-plt.annotate('A', xy=(0.92, 0.03), xycoords='axes fraction')
+plt.annotate('A', xy=(0.91, 0.02), xycoords='axes fraction')
 
 ncfile="ftle_80m.nc"
 root = Dataset(ncfile,'r') #read the data
@@ -170,7 +170,7 @@ plt.xticks(**tickfont)
 hrs, mins = np.divmod((t-1)*10,60)
 #plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
 #plt.title("Integration time = -{0:02d}.{1:02g} hrs".format(hrs,mins/60),**titlefont)
-plt.annotate('B', xy=(0.92, 0.03), xycoords='axes fraction')
+plt.annotate('B', xy=(0.91, 0.02), xycoords='axes fraction')
 
 sub = plt.subplot(223)
 t=7
@@ -185,7 +185,7 @@ plt.xticks(**tickfont)
 hrs, mins = np.divmod((t-1)*10,60)
 #plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
 #plt.title("Integration time = -{0:02d}.{1:02g} hrs".format(hrs,mins/60),**titlefont)
-plt.annotate('C', xy=(0.92, 0.03), xycoords='axes fraction')
+plt.annotate('C', xy=(0.91, 0.02), xycoords='axes fraction')
 
 sub = plt.subplot(224)
 t=13
@@ -199,6 +199,6 @@ plt.xticks(**tickfont)
 #plt.ylabel('hr$^{-1}$',**labelfont)
 hrs, mins = np.divmod((t-1)*10,60)
 #plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
-plt.annotate('D', xy=(0.92, 0.03), xycoords='axes fraction')
+plt.annotate('D', xy=(0.91, 0.02), xycoords='axes fraction')
 
 plt.savefig('s1_Backward-Time_FTLE_Comparison.eps', transparent=False, bbox_inches='tight')
