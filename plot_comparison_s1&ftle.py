@@ -97,7 +97,7 @@ for i in range(ydim):
             s2[i,j] = np.ma.masked
 
 plt.close('all')
-lev= 5
+lev= 301
 parallels_spacing = 3
 meridian_spacing = -3
 lon_min = np.min(lon,axis=None)
