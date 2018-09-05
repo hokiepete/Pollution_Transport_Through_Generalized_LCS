@@ -3,7 +3,7 @@ import numpy as np
 #from mpl_toolkits.basemap import interp
 from scipy import interpolate
 import mapping_functions as mf
-    
+import csv    
 height_level = 17 #0.81 eta level
 height_level = 3 #roughly 80 m above ground level
 grid_spacing = 12*1000 #km 2 m
@@ -153,6 +153,71 @@ m = Basemap(llcrnrlon=lon_min,
 parallels = np.arange(round(lat_min,0),lat_max+2,2)
 meridians = np.arange(round(lon_max,0),lon_min-2,-2)
 
+
+
+aridge = m.contour(lon,lat,adirdiv,levels=0,latlon=True,colors='blue')
+rridge = m.contour(lon,lat,rdirdiv,levels=0,latlon=True,colors='red')
+plt.close('all')
+pp = aridge.collections[0].get_paths()
+for p in [13,17,40,46,47,55]:
+    v = pp[p].vertices
+    x = v[:,0]
+    y = v[:,1]
+    x,y = m(x,y,inverse=True)
+    with open('attracting_ridge_{:02d}.txt'.format(p), 'w', newline='') as f:
+        writer = csv.writer(f)
+        for row in zip(x,y):
+            writer.writerow(row)
+        f.close()
+    
+pp = rridge.collections[0].get_paths()
+for p in [8,18,19,53,56,60]:
+    v = pp[p].vertices
+    x = v[:,0]
+    y = v[:,1]
+    x,y = m(x,y,inverse=True)        
+    with open('repelling_ridge_{:02d}.txt'.format(p), 'w', newline='') as f:
+        writer = csv.writer(f)
+        for row in zip(x,y):
+            writer.writerow(row)
+        f.close()
+    
+   
+
+#m.drawcoastlines()
+#plt.savefig('__First.png')
+
+ax = plt.gca()
+def format_coord(x, y):
+    return 'x={0[0]:.4f}, y={0[1]:.4f}'.format(m(x, y, inverse = True))
+ax.format_coord = format_coord
+r=15#km
+theta = np.arange(0,2*np.pi,0.1)
+xx = r*np.cos(theta)
+yy = r*np.sin(theta)
+#x = x+967075/500
+#y = y-694557/1000
+latlon=[(-80.3136,33.5022),(-79.6674,34.3957),(-80.6516,34.4237),(-81.6697,36.3055),(-84.1812,34.3397),(-81.3643,31.3464),(-84.2830,31.4044),(-87.9021,30.7102)]
+x=[]
+y=[]
+for i, latlon in enumerate(latlon):
+    print(i)
+    print(latlon[0])
+    print(latlon[1])
+    w,z = mf.km2lonlat(latlon[0],latlon[1],xx,yy,true_lat1,true_lat2)
+    x.append(w)
+    y.append(z)
+x = [val for sublist in x for val in sublist]
+y = [val for sublist in y for val in sublist]
+m.scatter(x,y,latlon=True)
+
+with open('tracers.txt', 'w', newline='') as f:
+    writer = csv.writer(f)
+    for row in zip(x,y):
+        writer.writerow(row)
+    f.close()
+
+
 '''
 fig = plt.figure(1)
 plt.subplot(121)
@@ -251,61 +316,7 @@ for p in range(len(pp)):
         plt.title('{:03d}'.format(p))
         plt.savefig('{:03d}_repelling.png'.format(p))
         plt.close('all')
-#'''
-aridge = m.contour(lon,lat,adirdiv,levels=0,latlon=True,colors='blue')
-rridge = m.contour(lon,lat,rdirdiv,levels=0,latlon=True,colors='red')
-plt.close('all')
-pp = aridge.collections[0].get_paths()
-for p in [13,17,40,46,47,55]:
-    v = pp[p].vertices
-    x = v[:,0]
-    y = v[:,1]
-    m.plot(x,y,'b-')#, latlon=True)
-pp = rridge.collections[0].get_paths()
-for p in [8,18,19,53,56,60]:
-    v = pp[p].vertices
-    x = v[:,0]
-    y = v[:,1]
-    m.plot(x,y,'r-')#, latlon=True)
-    
-   
-
-#m.drawcoastlines()
-plt.savefig('__First.png')
-
-ax = plt.gca()
-def format_coord(x, y):
-    return 'x={0[0]:.4f}, y={0[1]:.4f}'.format(m(x, y, inverse = True))
-ax.format_coord = format_coord
-r=15#km
-theta = np.arange(0,2*np.pi,0.1)
-xx = r*np.cos(theta)
-yy = r*np.sin(theta)
-#x = x+967075/500
-#y = y-694557/1000
-latlon=[(-80.3136,33.5022),(-79.6674,34.3957),(-80.6516,34.4237),(-81.6697,36.3055),(-84.1812,34.3397),(-81.3643,31.3464),(-84.2830,31.4044),(-87.9021,30.7102)]
-x=[]
-y=[]
-for i, latlon in enumerate(latlon):
-    print(i)
-    print(latlon[0])
-    print(latlon[1])
-    w,z = mf.km2lonlat(latlon[0],latlon[1],xx,yy,true_lat1,true_lat2)
-    x.append(w)
-    y.append(z)
-x = [val for sublist in x for val in sublist]
-y = [val for sublist in y for val in sublist]
-m.scatter(x,y,latlon=True)
-
-import csv
-with open('tracers.txt', 'w', newline='') as f:
-    writer = csv.writer(f)
-    for row in zip(x,y):
-        writer.writerow(row)
-    f.close()
-
-
-    
+#'''    
      
 '''
 r=15#km
