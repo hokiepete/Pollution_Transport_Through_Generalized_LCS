@@ -37,7 +37,8 @@ m = Basemap(llcrnrlon=lon_min,
 
 #lon,lat = np.meshgrid(lon,lat)
 #cs=m.contourf(lon,lat,ftle[-1,:,:],levels=np.linspace(ftle.min(axis=None),ftle.max(axis=None),301),latlon=True)
-ncfile="SE_tracers.nc"
+#ncfile="SE_tracers.nc"
+ncfile="tracers.nc"
 root = Dataset(ncfile,'r') #read the data
 vars = root.variables #dictionary, all variables in dataset\
 print(vars.keys())

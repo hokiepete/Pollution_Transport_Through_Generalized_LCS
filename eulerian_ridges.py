@@ -270,7 +270,7 @@ for p in [8,18,19,53,56,60]:
     
    
 
-m.drawcoastlines()
+#m.drawcoastlines()
 plt.savefig('__First.png')
 
 ax = plt.gca()
@@ -283,7 +283,7 @@ xx = r*np.cos(theta)
 yy = r*np.sin(theta)
 #x = x+967075/500
 #y = y-694557/1000
-latlon=[(-80.3136,33.5022),(-79.6674,34.3957)]
+latlon=[(-80.3136,33.5022),(-79.6674,34.3957),(-80.6516,34.4237),(-81.6697,36.3055),(-84.1812,34.3397),(-81.3643,31.3464),(-84.2830,31.4044),(-87.9021,30.7102)]
 x=[]
 y=[]
 for i, latlon in enumerate(latlon):
@@ -293,8 +293,19 @@ for i, latlon in enumerate(latlon):
     w,z = mf.km2lonlat(latlon[0],latlon[1],xx,yy,true_lat1,true_lat2)
     x.append(w)
     y.append(z)
+x = [val for sublist in x for val in sublist]
+y = [val for sublist in y for val in sublist]
 m.scatter(x,y,latlon=True)
 
+import csv
+with open('tracers.txt', 'w', newline='') as f:
+    writer = csv.writer(f)
+    for row in zip(x,y):
+        writer.writerow(row)
+    f.close()
+
+
+    
      
 '''
 r=15#km
