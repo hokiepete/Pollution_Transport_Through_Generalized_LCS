@@ -10,7 +10,7 @@ plt.close('all')
 xdim = 405
 ydim = 325
 tstart = calendar.timegm(time.strptime('Jun 1, 2017 @ 00:00:00 UTC', '%b %d, %Y @ %H:%M:%S UTC'))
-ncfile="ftle_80m.nc"
+ncfile="vapor_flux_ftle.nc"#"ftle_80m.nc"
 #ncfile="ftle_vapor_flux.nc"
 root = Dataset(ncfile,'r') #read the data
 vars = root.variables #dictionary, all variables in dataset\
@@ -27,6 +27,7 @@ tdim = np.shape(time)[0]
 ftle = vars['FTLE'][:,:,:,0]#.reshape([ydim,xdim,tdim],order='C')
 #lon, lat = np.meshgrid(lon,lat)
 root.close()
+
 lon_min = np.min(lon,axis=None)
 lon_max = np.max(lon,axis=None)
 lat_min = np.min(lat,axis=None)

@@ -24,8 +24,8 @@ vars = root.variables
 #u = vars['U'][:,height_level,:,:]
 #v = vars['V'][:,height_level,:,:]
 #Water Vapor Flux, Vertically Integrated
-u = vars['UQ'][:,:,:]
-v = vars['VQ'][:,:,:]
+u = vars['UQ_Q'][:,:,:]
+v = vars['VQ_Q'][:,:,:]
 lat_in = vars['XLAT'][0,:,:]
 lon_in = vars['XLONG'][0,:,:]
 root.close()

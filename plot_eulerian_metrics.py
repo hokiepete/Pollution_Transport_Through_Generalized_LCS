@@ -28,9 +28,7 @@ figwidth = 6
 FigSize=(figwidth, ydim/xdim*figwidth)
 
 
-root = Dataset('subset_wrfout_d01_2011-07-01_00_00_00','r')
-#root = Dataset('wrf_2011_07_01','r')
-#root = Dataset('subset_wrfout_d01_2011-07-02_00_00_00')
+root = Dataset('wrf_2011_07_01','r')
 cen_lat = getattr(root,'CEN_LAT')
 cen_lon = getattr(root,'CEN_LON')
 true_lat1 = getattr(root,'TRUELAT1')
@@ -39,30 +37,30 @@ ref_lat = getattr(root,'MOAD_CEN_LAT')
 ref_lon = getattr(root,'STAND_LON')
 vars = root.variables
 #Wind Velocity
-u = vars['U'][:,height_level,:,:]
-v = vars['V'][:,height_level,:,:]
+#u = vars['U'][:,height_level,:,:]
+#v = vars['V'][:,height_level,:,:]
 #Water Vapor Flux, Vertically Integrated
-#u = vars['UQ'][:,:,:]
-#v = vars['VQ'][:,:,:]
+u = vars['UQ_Q'][:,:,:]
+v = vars['VQ_Q'][:,:,:]
 lat = vars['XLAT'][0,:,:]
 lon = vars['XLONG'][0,:,:]
 root.close()
 checklon, checklat = mf.lonlat2km(ref_lon,ref_lat,lon,lat,true_lat1,true_lat2) 
 
-root = Dataset('subset_wrfout_d01_2011-07-02_00_00_00','r')
+root = Dataset('wrf_2011_07_02','r')
 vars = root.variables
 #Wind Velocity
-u = np.concatenate((u,vars['U'][:,height_level,:,:]))
-v = np.concatenate((v,vars['V'][:,height_level,:,:]))
+#u = np.concatenate((u,vars['U'][:,height_level,:,:]))
+#v = np.concatenate((v,vars['V'][:,height_level,:,:]))
 #Water Vapor Flux, Vertically Integrated
-#u = np.concatenate((u,vars['UQ'][:,:,:]))
-#v = np.concatenate((v,vars['VQ'][:,:,:]))
+u = np.concatenate((u,vars['UQ_Q'][:,:,:]))
+v = np.concatenate((v,vars['VQ_Q'][:,:,:]))
 root.close()
-u = mf.unstagger(u[:25,:,:],2)
-v = mf.unstagger(v[:25,:,:],1)
+#u = mf.unstagger(u[:25,:,:],2)
+#v = mf.unstagger(v[:25,:,:],1)
 
-u=u[-2,:,:]
-v=v[-2,:,:]
+u=u[-1,:,:]
+v=v[-1,:,:]
 #lon = lon[-1,:,:]
 #lat = lat[-1,:,:]
 #latin = lat[:25,:,:]
@@ -211,7 +209,6 @@ plt.show()
 #fig = plt.figure(3)
 #lon,lat = np.meshgrid(lon,lat)
 fig = plt.figure(figsize=FigSize)
-sub = plt.subplot(221)
 cs = m.contourf(lon,lat,-s1,levels=np.linspace(np.min(-s1,axis=None),np.max(-s1,axis=None),301),latlon=True)
 m.drawcoastlines()
 m.drawstates()
@@ -224,7 +221,7 @@ plt.xticks(**tickfont)
 #plt.ylabel('hr$^{-1}$',**labelfont)
 t=1
 hrs, mins = np.divmod((t-1)*10,60)
-#plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
-plt.title("s$_{1}$ field",**titlefont)#fontsize=18)
+plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
+#plt.title("s$_{1}$ field",**titlefont)#fontsize=18)
 plt.savefig('SE_lcs_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
 
