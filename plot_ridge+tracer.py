@@ -34,7 +34,16 @@ m = Basemap(llcrnrlon=lon_min,
             resolution = 'c',
             area_thresh=1000.,
             )
-
+'''
+m = Basemap(llcrnrlon=-179,
+            llcrnrlat=-85,
+            urcrnrlon=180,
+            urcrnrlat=85,
+            projection='merc',
+            resolution = 'c',
+            area_thresh=1000.,
+            )
+#'''
 #lon,lat = np.meshgrid(lon,lat)
 #cs=m.contourf(lon,lat,ftle[-1,:,:],levels=np.linspace(ftle.min(axis=None),ftle.max(axis=None),301),latlon=True)
 #ncfile="SE_tracers.nc"
@@ -66,7 +75,8 @@ for r in [8,18,19,53,56,60]:
     repelling_ridges_lat.append(vars["lat"][:])
     repelling_ridges_lon.append(vars["lon"][:])
     root.close()
-for t in range(146):#time)):
+    
+for t in range(145):#time)):
     #for c in cs.collections:
     #    c.remove()
     #cs.set_array(np.ravel(ftle[:,:,t]))
@@ -76,9 +86,15 @@ for t in range(146):#time)):
     #plt.title("{0}".format(time[-t]),fontsize=18)
     plt.figure(figsize=[16,12])
     for i in range(len(attracting_ridges_lat)):
-        m.plot(attracting_ridges_lon[i][:,t],attracting_ridges_lat[i][:,t],'b-',latlon=True)
+        x = [elem for elem in attracting_ridges_lon[i][:,t].data if elem < 99999]
+        y = [elem for elem in attracting_ridges_lat[i][:,t].data if elem < 99999]
+        #m.plot(attracting_ridges_lon[i][:,t],attracting_ridges_lat[i][:,t],c='b',latlon=True)
+        m.plot(x,y,c='b',latlon=True)
     for i in range(len(repelling_ridges_lat)):
-        m.plot(repelling_ridges_lon[i][:,t],repelling_ridges_lat[i][:,t],'r-',latlon=True)
+        x = [elem for elem in repelling_ridges_lon[i][:,t].data if elem < 99999]
+        y = [elem for elem in repelling_ridges_lat[i][:,t].data if elem < 99999]
+        #m.plot(repelling_ridges_lon[i][:,t],repelling_ridges_lat[i][:,t],c='r',latlon=True)
+        m.plot(x,y,c='r',latlon=True)
     m.scatter(t_lon[:,t],t_lat[:,t],latlon=True)
     
     
