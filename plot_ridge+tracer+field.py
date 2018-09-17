@@ -35,7 +35,7 @@ tdim = 17
 xdim = 102
 ydim = 82
 
-root = Dataset('subset_wrfout_d01_2011-07-01_00_00_00','r')
+root = Dataset('wrf_2011_07_01','r')
 cen_lat = getattr(root,'CEN_LAT')
 cen_lon = getattr(root,'CEN_LON')
 true_lat1 = getattr(root,'TRUELAT1')
@@ -51,7 +51,7 @@ root.close()
 
 checklon, checklat = mf.lonlat2km(ref_lon,ref_lat,lon,lat,true_lat1,true_lat2) 
 
-root = Dataset('subset_wrfout_d01_2011-07-02_00_00_00','r')
+root = Dataset('wrf_2011_07_02','r')
 vars = root.variables
 u = np.concatenate((u,vars['U'][:,height_level,:,:]))
 v = np.concatenate((v,vars['V'][:,height_level,:,:]))
@@ -134,6 +134,6 @@ for t in range(r_lon.shape[1]):#146):#time)):
     meridians = np.arange(round(lon_max,0),lon_min-2,-2)
     m.drawparallels(parallels,labels=[1,0,0,0],fontsize=10)
     m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=10)    
-    plt.savefig('SE_lcs_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
+    #plt.savefig('SE_lcs_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
     plt.close('all')
 #'''

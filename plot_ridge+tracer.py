@@ -76,7 +76,7 @@ for r in [8,18,19,53,56,60]:
     repelling_ridges_lon.append(vars["lon"][:])
     root.close()
     
-for t in range(145):#time)):
+for t in range(time.shape[0]):
     #for c in cs.collections:
     #    c.remove()
     #cs.set_array(np.ravel(ftle[:,:,t]))
@@ -105,6 +105,7 @@ for t in range(145):#time)):
     m.drawparallels(parallels,labels=[1,0,0,0],fontsize=10)
     m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=10)    
     plt.savefig('OECS_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
+    
     plt.close('all')
 #'''
     

@@ -224,4 +224,4 @@ hrs, mins = np.divmod((t-1)*10,60)
 plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
 #plt.title("s$_{1}$ field",**titlefont)#fontsize=18)
 plt.savefig('SE_lcs_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
-
+#'''

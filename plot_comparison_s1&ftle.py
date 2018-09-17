@@ -158,7 +158,7 @@ m = Basemap(llcrnrlon=lon_min,
 parallels = np.arange(round(lat_min,0),lat_max+2,parallels_spacing)
 meridians = np.arange(round(lon_max,0),lon_min-2,meridian_spacing)
 sub = plt.subplot(222)
-t=4
+t=7
 cs=m.contourf(lon,lat,ftle[-t,:,:],levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),lev),latlon=True)
 m.drawcoastlines()
 m.drawstates()
@@ -173,7 +173,7 @@ hrs, mins = np.divmod((t-1)*10,60)
 plt.annotate('B', xy=(0.91, 0.02), xycoords='axes fraction')
 
 sub = plt.subplot(223)
-t=7
+t=13
 cs=m.contourf(lon,lat,ftle[-t,:,:],levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),lev),latlon=True)
 m.drawcoastlines()
 m.drawstates()
@@ -188,7 +188,7 @@ hrs, mins = np.divmod((t-1)*10,60)
 plt.annotate('C', xy=(0.91, 0.02), xycoords='axes fraction')
 
 sub = plt.subplot(224)
-t=13
+t=25
 cs=m.contourf(lon,lat,ftle[-t,:,:],levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),lev),latlon=True)
 m.drawcoastlines()
 m.drawstates()
@@ -201,4 +201,4 @@ hrs, mins = np.divmod((t-1)*10,60)
 #plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
 plt.annotate('D', xy=(0.91, 0.02), xycoords='axes fraction')
 
-plt.savefig('s1_Backward-Time_FTLE_Comparison.eps', transparent=False, bbox_inches='tight')
+plt.savefig('s1_Backward-Time_FTLE_Comparison.png', transparent=False, bbox_inches='tight')

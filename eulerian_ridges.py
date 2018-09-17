@@ -157,7 +157,7 @@ meridians = np.arange(round(lon_max,0),lon_min-2,-2)
 
 aridge = m.contour(lon,lat,adirdiv,levels=0,latlon=True,colors='blue')
 rridge = m.contour(lon,lat,rdirdiv,levels=0,latlon=True,colors='red')
-plt.close('all')
+#plt.close('all')
 pp = aridge.collections[0].get_paths()
 for p in [13,17,40,46,47,55]:
     v = pp[p].vertices
@@ -184,7 +184,7 @@ for p in [8,18,19,53,56,60]:
     
    
 
-#m.drawcoastlines()
+m.drawcoastlines()
 #plt.savefig('__First.png')
 
 ax = plt.gca()
@@ -197,7 +197,7 @@ xx = r*np.cos(theta)
 yy = r*np.sin(theta)
 #x = x+967075/500
 #y = y-694557/1000
-latlon=[(-80.3136,33.5022),(-79.6674,34.3957),(-80.6516,34.4237),(-81.6697,36.3055),(-84.1812,34.3397),(-81.3643,31.3464),(-84.2830,31.4044),(-87.9021,30.7102)]
+latlon=[(-80.3136,33.5022),(-79.6674,34.3957),(-80.6516,34.4237),(-81.6697,36.3055),(-84.1812,34.3397),(-81.3643,31.3464),(-84.2830,31.4044),(-87.9021,30.7102),(-82.7258,34.0120)]
 x=[]
 y=[]
 for i, latlon in enumerate(latlon):
