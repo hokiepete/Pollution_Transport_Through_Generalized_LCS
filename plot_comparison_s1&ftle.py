@@ -99,7 +99,7 @@ for i in range(ydim):
 plt.close('all')
 lev= 301
 parallels_spacing = 3
-meridian_spacing = -3
+meridian_spacing = -4
 lon_min = np.min(lon,axis=None)
 lon_max = np.max(lon,axis=None)
 lat_min = np.min(lat,axis=None)
