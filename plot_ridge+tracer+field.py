@@ -98,9 +98,10 @@ ncfile="SE_tracers.nc"
 root = Dataset(ncfile,'r') #read the data
 vars = root.variables #dictionary, all variables in dataset\
 print(vars.keys())
-t_lat = vars["lat"][:]#.reshape([ydim,xdim])
-t_lon = vars["lon"][:]#.reshape([ydim,xdim])
+t_lat = vars["lat"][:,::4]#.reshape([ydim,xdim])
+t_lon = vars["lon"][:,::4]#.reshape([ydim,xdim])
 time = 86400*vars["time"][:]+tstart
+
 tdim = np.shape(time)[0]
 root.close()
 
@@ -108,8 +109,8 @@ ncfile="SE_ridge.nc"
 root = Dataset(ncfile,'r') #read the data
 vars = root.variables #dictionary, all variables in dataset\
 print(vars.keys())
-r_lat = vars["lat"][:]#.reshape([ydim,xdim])
-r_lon = vars["lon"][:]#.reshape([ydim,xdim])
+r_lat = vars["lat"][:,::4]#.reshape([ydim,xdim])
+r_lon = vars["lon"][:,::4]#.reshape([ydim,xdim])
 root.close()
 
 
@@ -134,6 +135,6 @@ for t in range(r_lon.shape[1]):#146):#time)):
     meridians = np.arange(round(lon_max,0),lon_min-2,-2)
     m.drawparallels(parallels,labels=[1,0,0,0],fontsize=10)
     m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=10)    
-    #plt.savefig('SE_lcs_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
+    plt.savefig('SE_lcs_{0:04d}.tif'.format(t), transparent=False, bbox_inches='tight')
     plt.close('all')
 #'''
