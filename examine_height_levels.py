@@ -42,21 +42,32 @@ xdim = 102
 ydim = 82
 
 
-root = Dataset('subset_wrfout_d01_2011-07-01_00_00_00','r')
+#root = Dataset('subset_wrfout_d01_2011-07-01_00_00_00','r')
+root = Dataset('wrf_2011_07_01','r')
 vars = root.variables
 grd = vars['HGT'][0,:,:]
 hgt = (vars['PH'][0,:,:,:] + vars['PHB'][0,:,:,:])/9.81
 lat = vars['XLAT'][0,:,:]
 lon = vars['XLONG'][0,:,:]
 root.close()
+hgt=hgt-grd
+heightmax=hgt.max(axis=(1,2))
+heightmin=hgt.min(axis=(1,2))
+heightmean=hgt.mean(axis=(1,2))                  
+diff = heightmax-heightmin
 
 import matplotlib.pyplot as plt
-data = hgt[3,:,:]-grd
-data = np.ma.masked_where(data<0,data)
+plt.plot(heightmean,'b*-')
+plt.plot(heightmin,'c*-')
+plt.plot(heightmax,'r*-')
+'''
+data = hgt[0,:,:]
+#data = hgt[1,:,:]-grd
+#data = np.ma.masked_where(data<0,data)
 plt.close('all')
 plt.contourf(lon,lat,data,levels=np.linspace(data.min(),data.max(),301))
 plt.colorbar()
-
+#'''
 
 '''
 

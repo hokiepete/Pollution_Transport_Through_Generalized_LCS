@@ -11,7 +11,7 @@ from netCDF4 import Dataset
 #import matplotlib.pyplot as plt
 import numpy as np
 #from mpl_toolkits.basemap import Basemap
-f = open('NC_MetaData.doc', 'w')
+f = open('NC_MetaData.txt', 'w')
 ncfile='wrf_2011_07_01'
 #ncfile="hosiendata.nc"
 root = Dataset(ncfile,'r') #read the data
