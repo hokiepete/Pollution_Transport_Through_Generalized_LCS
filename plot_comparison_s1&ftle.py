@@ -21,13 +21,13 @@ height_level = 3 #roughly 80 m above ground level
 grid_spacing = 12*1000 #km 2 m
 
 tdim = 25
-xdim = 102
-ydim = 82
+xdim = 405
+ydim = 325
 
 figwidth = 6
 FigSize=(figwidth, ydim/xdim*figwidth)
 
-
+'''
 #root = Dataset('subset_wrfout_d01_2011-07-01_00_00_00','r')
 root = Dataset('wrf_2011_07_01','r')
 cen_lat = getattr(root,'CEN_LAT')
@@ -63,6 +63,23 @@ v = mf.unstagger(v[:25,:,:],1)
 
 u=u[-2,:,:]
 v=v[-2,:,:]
+'''
+
+root = Dataset('hosiendata_wind_velocity.nc','r')
+vars = root.variables
+#Wind Velocity
+u = vars['eastward_vel'][:]
+v = vars['northward_vel'][:]
+#Water Vapor Flux, Vertically Integrated
+#u = vars['UQ'][:,:,:]
+#v = vars['VQ'][:,:,:]
+lat = vars['lat'][:]
+lon = vars['lon'][:]
+root.close()
+u=u[-1,:,:]
+v=v[-1,:,:]
+
+
 #lon = lon[-1,:,:]
 #lat = lat[-1,:,:]
 #latin = lat[:25,:,:]
@@ -106,7 +123,7 @@ lat_min = np.min(lat,axis=None)
 lat_max = np.max(lat,axis=None)
 height=(ydim-1)*dy#+10*1000
 width=(xdim-1)*dx#+10*1000
-
+lon, lat = np.meshgrid(lon,lat)
 m = Basemap(llcrnrlon=lon_min,
             llcrnrlat=lat_min,
             urcrnrlon=lon_max,
