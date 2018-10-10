@@ -31,7 +31,7 @@ m = Basemap(llcrnrlon=lon_min,
             urcrnrlon=lon_max,
             urcrnrlat=lat_max,
             projection='merc',
-            resolution = 'c',
+            resolution = 'i',
             area_thresh=1000.,
             )
 '''
@@ -97,6 +97,8 @@ for t in range(time.shape[0]):
         m.plot(x,y,c='r',latlon=True)
     m.scatter(t_lon[:,t],t_lat[:,t],latlon=True)
     
+    hrs, mins = np.divmod(t*10,60)
+    plt.title('{0:02d} hrs, {1:02d} mins'.format(int(hrs),int(mins)))
     
     m.drawcoastlines()
     m.drawstates()
