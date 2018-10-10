@@ -1,4 +1,4 @@
-The # of dimensions = 16
+The # of dimensions = 46
 Dimension[Time] = 24
 Dimension[DateStrLen] = 19
 Dimension[south_north] = 82
@@ -15,6 +15,36 @@ Dimension[ncl12] = 102
 Dimension[ncl13] = 24
 Dimension[ncl14] = 82
 Dimension[ncl15] = 102
+Dimension[ncl16] = 24
+Dimension[ncl17] = 82
+Dimension[ncl18] = 102
+Dimension[ncl19] = 24
+Dimension[ncl20] = 82
+Dimension[ncl21] = 102
+Dimension[ncl22] = 24
+Dimension[ncl23] = 82
+Dimension[ncl24] = 102
+Dimension[ncl25] = 24
+Dimension[ncl26] = 82
+Dimension[ncl27] = 102
+Dimension[ncl28] = 24
+Dimension[ncl29] = 82
+Dimension[ncl30] = 102
+Dimension[ncl31] = 24
+Dimension[ncl32] = 82
+Dimension[ncl33] = 102
+Dimension[ncl34] = 24
+Dimension[ncl35] = 82
+Dimension[ncl36] = 102
+Dimension[ncl37] = 24
+Dimension[ncl38] = 82
+Dimension[ncl39] = 102
+Dimension[ncl40] = 24
+Dimension[ncl41] = 82
+Dimension[ncl42] = 102
+Dimension[ncl43] = 24
+Dimension[ncl44] = 82
+Dimension[ncl45] = 102
 The # of attributes = 127
 Global_Attribute[TITLE] =  OUTPUT FROM WRF V3.8 MODEL
 Global_Attribute[START_DATE] = 2011-06-30_00:00:00
@@ -143,7 +173,7 @@ Global_Attribute[ISICE] = 15
 Global_Attribute[ISURBAN] = 13
 Global_Attribute[ISOILWATER] = 14
 Global_Attribute[history] = Created with subset_wrfout_nco.csh
-The # of variables = 70
+The # of variables = 83
 ---------- variable Times ----------
 shape = (24, 19)
 dimension[Time] = 24
@@ -928,42 +958,153 @@ attribute[description] = LAND MASK (1 FOR LAND, 0 FOR WATER)
 attribute[units] = 
 attribute[stagger] = 
 attribute[coordinates] = XLONG XLAT XTIME
----------- variable Q ----------
+---------- variable SO2 ----------
+shape = (24, 35, 82, 102)
+dimension[Time] = 24
+dimension[bottom_top] = 35
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 4
+attribute[var_desc] = Variable SO2                                                                    
+attribute[units] = ppmV            
+attribute[long_name] = SO2             
+attribute[_FillValue] = 0.0
+---------- variable USO2 ----------
 shape = (24, 82, 102)
 dimension[Time] = 24
 dimension[south_north] = 82
 dimension[west_east] = 102
-number of attributes = 3
-attribute[units] = kg/m2
-attribute[long_name] = Vertically Integrated Water Vapor
-attribute[sum_op_ncl] = dim_sum_n over dimension(s): bottom_top
----------- variable UQ ----------
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable VSO2 ----------
 shape = (24, 82, 102)
 dimension[Time] = 24
 dimension[south_north] = 82
 dimension[west_east] = 102
-number of attributes = 3
-attribute[units] = kg/m2/s
-attribute[long_name] = eastern water vapor flux
-attribute[sum_op_ncl] = dim_sum_n over dimension(s): bottom_top
----------- variable VQ ----------
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable O3 ----------
+shape = (24, 35, 82, 102)
+dimension[Time] = 24
+dimension[bottom_top] = 35
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 4
+attribute[var_desc] = Variable O3                                                                     
+attribute[units] = ppmV            
+attribute[long_name] = O3              
+attribute[_FillValue] = 0.0
+---------- variable UO3 ----------
 shape = (24, 82, 102)
 dimension[Time] = 24
 dimension[south_north] = 82
 dimension[west_east] = 102
-number of attributes = 3
-attribute[units] = kg/m2/s
-attribute[long_name] = northern water vapor flux
-attribute[sum_op_ncl] = dim_sum_n over dimension(s): bottom_top
----------- variable UQ_Q ----------
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable VO3 ----------
 shape = (24, 82, 102)
 dimension[Time] = 24
 dimension[south_north] = 82
 dimension[west_east] = 102
-number of attributes = 0
----------- variable VQ_Q ----------
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable NO2 ----------
+shape = (24, 35, 82, 102)
+dimension[Time] = 24
+dimension[bottom_top] = 35
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 4
+attribute[var_desc] = Variable NO2                                                                    
+attribute[units] = ppmV            
+attribute[long_name] = NO2             
+attribute[_FillValue] = 0.0
+---------- variable UNO2 ----------
 shape = (24, 82, 102)
 dimension[Time] = 24
 dimension[south_north] = 82
 dimension[west_east] = 102
-number of attributes = 0
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable VNO2 ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable ANH4J ----------
+shape = (24, 35, 82, 102)
+dimension[Time] = 24
+dimension[bottom_top] = 35
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 4
+attribute[var_desc] = Variable ANH4J                                                                  
+attribute[units] = micrograms/m**3 
+attribute[long_name] = ANH4J           
+attribute[_FillValue] = 0.0
+---------- variable UANH4J ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable VANH4J ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable ANAJ ----------
+shape = (24, 35, 82, 102)
+dimension[Time] = 24
+dimension[bottom_top] = 35
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 4
+attribute[var_desc] = Variable ANAJ                                                                   
+attribute[units] = micrograms/m**3 
+attribute[long_name] = ANAJ            
+attribute[_FillValue] = 0.0
+---------- variable UANAJ ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable VANAJ ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable ASO4J ----------
+shape = (24, 35, 82, 102)
+dimension[Time] = 24
+dimension[bottom_top] = 35
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 4
+attribute[var_desc] = Variable ASO4J                                                                  
+attribute[units] = micrograms/m**3 
+attribute[long_name] = ASO4J           
+attribute[_FillValue] = 0.0
+---------- variable UASO4J ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 1
+attribute[_FillValue] = 0.0
+---------- variable VASO4J ----------
+shape = (24, 82, 102)
+dimension[Time] = 24
+dimension[south_north] = 82
+dimension[west_east] = 102
+number of attributes = 1
+attribute[_FillValue] = 0.0
