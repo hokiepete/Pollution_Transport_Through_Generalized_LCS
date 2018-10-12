@@ -26,8 +26,6 @@ xdim = 405
 ydim = 325
 time_step = 21 #2100hrs
 
-species = 'ANAJ'
-
 figwidth = 6
 FigSize=(figwidth, ydim/xdim*figwidth)
 

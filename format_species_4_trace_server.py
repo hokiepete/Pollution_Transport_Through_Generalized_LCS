@@ -25,12 +25,11 @@ for species in ['NO2','SO2','O3','ANH4J','ASO4J','ANAJ']:
     #u = vars['U'][:,height_level,:,:]
     #v = vars['V'][:,height_level,:,:]
     #Water Vapor Flux, Vertically Integrated
-    u = vars['U'+species][:,:,:]
-    v = vars['V'+species][:,:,:]
-    lat_in = vars['XLAT'][0,:,:]
-    lon_in = vars['XLONG'][0,:,:]
+    u = vars['U'+species][:,1:-1,1:-1]
+    v = vars['V'+species][:,1:-1,1:-1]
+    lat_in = vars['XLAT'][0,1:-1,1:-1]
+    lon_in = vars['XLONG'][0,1:-1,1:-1]
     root.close()
-    
     
     xin,yin = mf.lonlat2km(ref_lon,ref_lat,lon_in,lat_in,true_lat1,true_lat2)
     
@@ -116,5 +115,4 @@ for species in ['NO2','SO2','O3','ANH4J','ASO4J','ANAJ']:
     lando[:] = land
     
     dataset.close()
-
 
