@@ -1,7 +1,7 @@
 load oecs_data
 load rawisosurface
 s1_ordered = sort(reshape(s1,1,[]));
-index = floor((length(s1_ordered)*0.75));
+index = floor((length(s1_ordered)*0.6));
 s1_thresh = s1_ordered(index)
 
 
