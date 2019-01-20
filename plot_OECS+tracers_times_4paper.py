@@ -23,7 +23,7 @@ xdim = 405
 ydim = 325
 smoothing_coef = 0.1
 interp_number = 20
-figwidth = 6
+figwidth = 5+3/8
 FigSize=(figwidth, ydim/xdim*figwidth)
 
 tstart = calendar.timegm(time.strptime('Jun 1, 2017 @ 00:00:00 UTC', '%b %d, %Y @ %H:%M:%S UTC'))
@@ -223,7 +223,7 @@ m.scatter(t_lon[:,t],t_lat[:,t],color=marker_color,s=marker_size,latlon=True)
 plt.annotate('D', xy=(0.91, 0.02), xycoords='axes fraction')
 
 
-plt.savefig('OECS+tracers.png'.format(t), transparent=False, bbox_inches='tight')
+plt.savefig('iLCS+tracers_v2.png'.format(t), transparent=False, bbox_inches='tight')
 
 #'''
     

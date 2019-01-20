@@ -24,7 +24,7 @@ tdim = 25
 xdim = 405
 ydim = 325
 
-figwidth = 6
+figwidth = 5+3/8#6
 FigSize=(figwidth, ydim/xdim*figwidth)
 
 '''
@@ -218,4 +218,4 @@ hrs, mins = np.divmod((t-1)*10,60)
 #plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
 plt.annotate('D', xy=(0.91, 0.02), xycoords='axes fraction')
 
-plt.savefig('s1_Backward-Time_FTLE_Comparison.png', transparent=False, bbox_inches='tight')
+plt.savefig('s1_Backward-Time_FTLE_Comparison_v2.png', transparent=False, bbox_inches='tight')
