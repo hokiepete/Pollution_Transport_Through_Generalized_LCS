@@ -69,7 +69,9 @@ parallels = np.arange(round(lat_min,0),lat_max+2,2)
 meridians = np.arange(round(lon_max,0),lon_min-2,-3)
 m.drawparallels(parallels,labels=[1,0,0,0],fontsize=8)
 m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=8)
-plt.title("Horizontal Wind",**titlefont)
+#plt.title("Horizontal Wind",**titlefont)
+plt.annotate('A', xy=(0.91, 0.02), xycoords='axes fraction')
+
 
 
 ncfile=ftle_species[1]+"_FTLE.nc"#"ftle_80m.nc"
@@ -88,7 +90,9 @@ parallels = np.arange(round(lat_min,0),lat_max+2,2)
 meridians = np.arange(round(lon_max,0),lon_min-2,-3)
 m.drawparallels(parallels,labels=[1,0,0,0],fontsize=8)
 m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=8)
-plt.title("Water Vapor",**titlefont)
+#plt.title("Water Vapor",**titlefont)
+plt.annotate('B', xy=(0.91, 0.02), xycoords='axes fraction')
+
 
 ncfile=ftle_species[2]+"_FTLE.nc"#"ftle_80m.nc"
 root = Dataset(ncfile,'r') #read the data
@@ -106,7 +110,8 @@ parallels = np.arange(round(lat_min,0),lat_max+2,2)
 meridians = np.arange(round(lon_max,0),lon_min-2,-3)
 m.drawparallels(parallels,labels=[1,0,0,0],fontsize=8)
 m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=8)
-plt.title("Nitrogen Dioxide",**titlefont)
+plt.annotate('C', xy=(0.91, 0.02), xycoords='axes fraction')
+#plt.title("Nitrogen Dioxide",**titlefont)
 
 ncfile=ftle_species[3]+"_FTLE.nc"#"ftle_80m.nc"
 root = Dataset(ncfile,'r') #read the data
@@ -124,7 +129,8 @@ parallels = np.arange(round(lat_min,0),lat_max+2,2)
 meridians = np.arange(round(lon_max,0),lon_min-2,-3)
 m.drawparallels(parallels,labels=[1,0,0,0],fontsize=8)
 m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=8)
-plt.title("Ozone",**titlefont)
+plt.annotate('D', xy=(0.91, 0.02), xycoords='axes fraction')
+#plt.title("Ozone",**titlefont)
 
 plt.savefig('pollution.png', transparent=False, bbox_inches='tight',dpi=200)
 
