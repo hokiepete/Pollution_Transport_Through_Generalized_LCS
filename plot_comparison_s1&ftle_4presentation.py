@@ -137,7 +137,7 @@ parallels = np.arange(round(lat_min,0),lat_max+2,parallels_spacing)
 meridians = np.arange(round(lon_max,0),lon_min-2,meridian_spacing)
 
 fig = plt.figure(figsize=FigSize)
-sub = plt.subplot(221)
+#sub = plt.subplot(221)
 cs = m.contourf(lon,lat,-s1,levels=np.linspace(np.min(-s1,axis=None),np.max(-s1,axis=None),lev),latlon=True)
 m.drawcoastlines()
 m.drawstates()
@@ -147,6 +147,8 @@ plt.yticks(**tickfont)
 plt.xticks(**tickfont)
 #plt.title("s$_{1}$ field",**titlefont)#fontsize=18)
 plt.annotate('A', xy=(0.91, 0.02), xycoords='axes fraction')
+
+plt.savefig('s1_Backward-Time_FTLE_Comparison_a.png', transparent=False, bbox_inches='tight',dpi=300)
 
 ncfile="ftle_80m.nc"
 root = Dataset(ncfile,'r') #read the data
@@ -174,7 +176,8 @@ m = Basemap(llcrnrlon=lon_min,
 
 parallels = np.arange(round(lat_min,0),lat_max+2,parallels_spacing)
 meridians = np.arange(round(lon_max,0),lon_min-2,meridian_spacing)
-sub = plt.subplot(222)
+fig = plt.figure(figsize=FigSize)
+#sub = plt.subplot(222)
 t=7
 cs=m.contourf(lon,lat,ftle[-t,:,:],levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),lev),latlon=True)
 m.drawcoastlines()
@@ -189,7 +192,10 @@ hrs, mins = np.divmod((t-1)*10,60)
 #plt.title("Integration time = -{0:02d}.{1:02g} hrs".format(hrs,mins/60),**titlefont)
 plt.annotate('B', xy=(0.91, 0.02), xycoords='axes fraction')
 
-sub = plt.subplot(223)
+plt.savefig('s1_Backward-Time_FTLE_Comparison_b.png', transparent=False, bbox_inches='tight',dpi=300)
+
+fig = plt.figure(figsize=FigSize)
+#sub = plt.subplot(223)
 t=13
 cs=m.contourf(lon,lat,ftle[-t,:,:],levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),lev),latlon=True)
 m.drawcoastlines()
@@ -204,7 +210,10 @@ hrs, mins = np.divmod((t-1)*10,60)
 #plt.title("Integration time = -{0:02d}.{1:02g} hrs".format(hrs,mins/60),**titlefont)
 plt.annotate('C', xy=(0.91, 0.02), xycoords='axes fraction')
 
-sub = plt.subplot(224)
+plt.savefig('s1_Backward-Time_FTLE_Comparison_c.png', transparent=False, bbox_inches='tight',dpi=300)
+
+fig = plt.figure(figsize=FigSize)
+#sub = plt.subplot(224)
 t=25
 cs=m.contourf(lon,lat,ftle[-t,:,:],levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),lev),latlon=True)
 m.drawcoastlines()
@@ -218,4 +227,4 @@ hrs, mins = np.divmod((t-1)*10,60)
 #plt.title("Integration time = -{0:02d} hrs, {1:02d} min".format(hrs,mins),fontsize=18)
 plt.annotate('D', xy=(0.91, 0.02), xycoords='axes fraction')
 
-plt.savefig('s1_Backward-Time_FTLE_Comparison_v2.png', transparent=False, bbox_inches='tight',dpi=300)
+plt.savefig('s1_Backward-Time_FTLE_Comparison_d.png', transparent=False, bbox_inches='tight',dpi=300)

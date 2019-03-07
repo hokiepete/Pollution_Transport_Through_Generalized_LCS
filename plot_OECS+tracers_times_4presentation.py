@@ -105,7 +105,7 @@ parallels = np.arange(round(lat_min,0),lat_max+2,3)
 meridians = np.arange(round(lon_max,0),lon_min-2,-4)
 
 plt.figure(figsize=FigSize)
-plt.subplot(221)
+#plt.subplot(221)
 t=0
 m.drawcoastlines()
 m.drawstates()
@@ -134,8 +134,11 @@ for i in range(len(attracting_ridges_lat)):
 m.scatter(t_lon[:,t],t_lat[:,t],color=marker_color,s=marker_size,latlon=True)
 plt.annotate('A', xy=(0.91, 0.02), xycoords='axes fraction')
 
+plt.savefig('iLCS+tracers_a.eps'.format(t), transparent=False, bbox_inches='tight')
 
-plt.subplot(222)
+
+plt.figure(figsize=FigSize)
+#plt.subplot(222)
 t=12
 m.drawcoastlines()
 m.drawstates()
@@ -164,7 +167,10 @@ for i in range(len(attracting_ridges_lat)):
 m.scatter(t_lon[:,t],t_lat[:,t],color=marker_color,s=marker_size,latlon=True)
 plt.annotate('B', xy=(0.91, 0.02), xycoords='axes fraction')
 
-plt.subplot(223)
+plt.savefig('iLCS+tracers_b.eps'.format(t), transparent=False, bbox_inches='tight')
+
+plt.figure(figsize=FigSize)
+#plt.subplot(223)
 t=24
 m.drawcoastlines()
 m.drawstates()
@@ -193,7 +199,10 @@ for i in range(len(attracting_ridges_lat)):
 m.scatter(t_lon[:,t],t_lat[:,t],color=marker_color,s=marker_size,latlon=True)
 plt.annotate('C', xy=(0.91, 0.02), xycoords='axes fraction')
 
-plt.subplot(224)
+plt.savefig('iLCS+tracers_c.eps'.format(t), transparent=False, bbox_inches='tight')
+
+plt.figure(figsize=FigSize)
+#plt.subplot(224)
 t=48
 m.drawcoastlines()
 m.drawstates()
@@ -223,7 +232,7 @@ m.scatter(t_lon[:,t],t_lat[:,t],color=marker_color,s=marker_size,latlon=True)
 plt.annotate('D', xy=(0.91, 0.02), xycoords='axes fraction')
 
 
-plt.savefig('iLCS+tracers_v2.eps'.format(t), transparent=False, bbox_inches='tight')
+plt.savefig('iLCS+tracers_d.eps'.format(t), transparent=False, bbox_inches='tight')
 
 #'''
     
