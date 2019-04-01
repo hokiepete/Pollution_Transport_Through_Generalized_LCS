@@ -219,3 +219,4 @@ hrs, mins = np.divmod((t-1)*10,60)
 plt.annotate('D', xy=(0.91, 0.02), xycoords='axes fraction')
 
 plt.savefig('s1_Backward-Time_FTLE_Comparison_v2.png', transparent=False, bbox_inches='tight',dpi=300)
+plt.savefig('s1_Backward-Time_FTLE_Comparison_v2.eps', transparent=False, bbox_inches='tight')
