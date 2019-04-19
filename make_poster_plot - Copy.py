@@ -112,6 +112,7 @@ for k, species in enumerate(['wind_speed','water_vapor','SO2','ANAJ','NO2','O3',
     m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=8)
     plt.xticks([])
     plt.yticks([])
+    plt.annotate('A', xy=(0.03, 0.03), xycoords='axes fraction')
     
     ncfile=ftle_species[k]+"_FTLE.nc"#"ftle_80m.nc"
     root = Dataset(ncfile,'r') #read the data
@@ -132,11 +133,10 @@ for k, species in enumerate(['wind_speed','water_vapor','SO2','ANAJ','NO2','O3',
     m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=8)
     plt.xticks([])
     plt.yticks([])
+    plt.annotate('B', xy=(0.03, 0.03), xycoords='axes fraction')
     
     plt.subplot(gs1[0,2])
     cs=m.contourf(lon,lat,ftle[-37,:,:],levels=np.linspace(np.min(ftle[-37,:,:],axis=None),np.max(ftle[-37,:,:],axis=None),301),latlon=True)
-    
-    
     m.drawcoastlines()
     m.drawstates()
     parallels = np.arange(round(lat_min,0),lat_max+2,3)
@@ -145,6 +145,9 @@ for k, species in enumerate(['wind_speed','water_vapor','SO2','ANAJ','NO2','O3',
     m.drawmeridians(meridians,labels=[0,0,0,1],fontsize=8)
     plt.xticks([])
     plt.yticks([])
+    plt.annotate('C', xy=(0.03, 0.03), xycoords='axes fraction')
+    
+    
     cbar_ax = fig.add_axes([0.708, 0.248, 0.008, 0.495])
     cb = fig.colorbar(cs, cax=cbar_ax)
     #cb =plt.colorbar()
