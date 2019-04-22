@@ -51,7 +51,7 @@ m = Basemap(llcrnrlon=lon_min,
             )
 
 
-
+tstart = calendar.timegm(time.strptime('Jun 1, 2017 @ 00:00:00 UTC', '%b %d, %Y @ %H:%M:%S UTC'))
 ftle_species = ['wind_speed','water_vapor','SO2','NA','NO2','O3','SO4','NH4']
 final_len = len(ftle_species)-1
 for k, species in enumerate(['wind_speed','water_vapor','SO2','ANAJ','NO2','O3','ASO4J','ANH4J']):
@@ -62,7 +62,7 @@ for k, species in enumerate(['wind_speed','water_vapor','SO2','ANAJ','NO2','O3',
     gs1 = gridspec.GridSpec(1, 4)
     gs1.update(wspace=0.05, hspace=0.05)
 
-    tstart = calendar.timegm(time.strptime('Jun 1, 2017 @ 00:00:00 UTC', '%b %d, %Y @ %H:%M:%S UTC'))
+    
     ncfile="species_data_"+species+".nc"#"ftle_80m.nc"
     root = Dataset(ncfile,'r')
     vars = root.variables
@@ -120,6 +120,7 @@ for k, species in enumerate(['wind_speed','water_vapor','SO2','ANAJ','NO2','O3',
     lat = vars["lat"][:]
     lon = vars["lon"][:]
     ftle = vars['FTLE'][:,:,:,0]
+    time = vars['time'][:]
     lon, lat = np.meshgrid(lon,lat)
     root.close()
 
