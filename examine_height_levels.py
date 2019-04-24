@@ -2,6 +2,7 @@ from netCDF4 import Dataset
 import numpy as np
 #from mpl_toolkits.basemap import interp
 from scipy import interpolate
+import mapping_functions as mf
 def cot(th):
     return 1.0/np.tan(th)
 
@@ -46,7 +47,7 @@ ydim = 82
 root = Dataset('wrf_2011_07_01','r')
 vars = root.variables
 grd = vars['HGT'][0,:,:]
-hgt = (vars['PH'][0,:,:,:] + vars['PHB'][0,:,:,:])/9.81
+hgt = mf.unstagger((vars['PH'][0,:,:,:] + vars['PHB'][0,:,:,:])/9.81)
 lat = vars['XLAT'][0,:,:]
 lon = vars['XLONG'][0,:,:]
 root.close()
