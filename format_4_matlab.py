@@ -3,7 +3,8 @@ import numpy as np
 #from mpl_toolkits.basemap import interp
 #from scipy import interpolate
 import mapping_functions as mf
-from scipy.io import savemat
+#from scipy.io import savemat
+from hdf5storage import savemat
 height_level = 17 #0.81 eta level
 height_level = 3 #roughly 80 m above ground level
 grid_spacing = 12 #km
@@ -35,8 +36,13 @@ xin = np.linspace(0,12000*101,102)
 yin = np.linspace(0,12000*81,82)
 hin = hgt.mean(axis=(1,2))
 time = np.linspace(0,3600*23,24)
+u = u.data
+v = v.data
+w = w.data
+hin = hin.data
 
-savemat('wrfdata.m',{'x':xin,'y':yin,'z':hin,'time':time,'u':u,'v':v,'w':w})
+savemat('wrfdata.mat',{'x':xin,'y':yin,'z':hin,'time':time,'u':u,'v':v,'w':w})
+
 
 """
 xin,yin = mf.lonlat2m(ref_lon,ref_lat,lon_in,lat_in,true_lat1,true_lat2)

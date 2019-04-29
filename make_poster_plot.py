@@ -5,7 +5,7 @@ from scipy import interpolate
 import mapping_functions as mf
 import matplotlib
 import matplotlib.pyplot as plt
-from mpl_toolkits.basemap import Basemap
+#from mpl_toolkits.basemap import Basemap
 import matplotlib.gridspec as gridspec
 import matplotlib.ticker as ticker
 import time
