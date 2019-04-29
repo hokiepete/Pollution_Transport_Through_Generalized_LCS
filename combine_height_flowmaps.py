@@ -1,4 +1,4 @@
-from scipy.io import loadmat, savemat
+from hdf5storage import loadmat, savemat
 import numpy as np
 
 #fx fy fz xx yy zz time
@@ -8,6 +8,7 @@ fy = np.empty((325,405,35,37))
 fz = np.empty((325,405,35,37))
 
 for i in range(5):
+    print(i)
     fx[:,:,7*i:7*i+7,:] = loadmat('flow_map_gridint_3d_q{}.mat'.format(i+1))['fx'][:,:,7*i:7*i+7,:]
     fy[:,:,7*i:7*i+7,:] = loadmat('flow_map_gridint_3d_q{}.mat'.format(i+1))['fy'][:,:,7*i:7*i+7,:]
     fz[:,:,7*i:7*i+7,:] = loadmat('flow_map_gridint_3d_q{}.mat'.format(i+1))['fz'][:,:,7*i:7*i+7,:]
