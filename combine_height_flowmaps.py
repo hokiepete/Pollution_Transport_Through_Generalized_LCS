@@ -18,3 +18,4 @@ z=loadmat('flow_map_gridint_3d_q1.mat')['zz']
 t=loadmat('flow_map_gridint_3d_q1.mat')['time']
 
 savemat('flow_map_wrf_3d.mat',{'fx':fx,'fy':fy,'fz':fz,'x':x,'y':y,'z':z,'t':t})
+savemat('height.mat',{'z':z})

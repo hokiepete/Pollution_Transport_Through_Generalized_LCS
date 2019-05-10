@@ -8,7 +8,7 @@ height_level = 17 #0.81 eta level
 height_level = 3 #roughly 80 m above ground level
 grid_spacing = 12 #km
 
-tdim = 25
+tdim = 24
 xdim = 102
 ydim = 82
 
@@ -29,7 +29,7 @@ v = vars['VQ_Q'][:,:,:]
 lat_in = vars['XLAT'][0,:,:]
 lon_in = vars['XLONG'][0,:,:]
 root.close()
-
+"""
 root = Dataset('wrf_2011_07_02','r')
 vars = root.variables
 #Wind Velocity
@@ -44,7 +44,7 @@ root.close()
 #v = mf.unstagger(v[:25,:,:],1)
 u = u[:25,:,:]
 v = v[:25,:,:]
-
+"""
 xin,yin = mf.lonlat2km(ref_lon,ref_lat,lon_in,lat_in,true_lat1,true_lat2)
 
 lat2file = np.linspace(np.min(lat_in),np.max(lat_in),(ydim-1)*4+1)
