@@ -2,10 +2,9 @@ from netCDF4 import Dataset
 from hdf5storage import loadmat
 import numpy as np
 import matplotlib.pyplot as plt
-list_ = ['H2O','SO2','ANAJ','NO2','O3','ASO4J','ANH4J']
+list_ = ['H2O']#,'SO2','ANAJ','NO2','O3','ASO4J','ANH4J']
 dx = 300
 dy = 300
-
 
 s1_wind = []
 for h in range(35):
@@ -18,19 +17,19 @@ for h in range(35):
     v = vars['northward_vel'][21,:,:]
     v[v==999999] = np.nan
     ydim,xdim = u.shape
-    s1 = np.ma.empty([ydim,xdim])
+    s1 = np.empty([ydim,xdim])
     dudy,dudx = np.gradient(u,dy,dx)
     dvdy,dvdx = np.gradient(v,dy,dx)
     for i in range(ydim):
         for j in range(xdim):
-            if (dudx[i,j] and dudy[i,j] and dvdx[i,j] and dvdy[i,j] and u[i,j] and v[i,j]) is not np.ma.masked:    
+            if (dudx[i,j] and dudy[i,j] and dvdx[i,j] and dvdy[i,j] and u[i,j] and v[i,j]) is not np.nan:    
                 Utemp = np.array([u[i, j], v[i, j]])
                 U = Utemp/np.linalg.norm(Utemp)
                 Grad = np.array([[dudx[i, j], dudy[i, j]], [dvdx[i, j], dvdy[i, j]]])
                 S = 0.5*(Grad + np.transpose(Grad))
                 s1[i,j] = 3600*np.min(np.linalg.eig(S)[0])
             else:
-                s1[i,j] = np.ma.masked
+                s1[i,j] = np.nan
     s1_wind.append(s1.ravel())
 
 
@@ -45,19 +44,19 @@ for k, species in enumerate(list_):
     v = vars['northward_vel'][21,:,:]
     v[v==999999] = np.nan
     ydim,xdim = u.shape
-    s1 = np.ma.empty([ydim,xdim])
+    s1 = np.empty([ydim,xdim])
     dudy,dudx = np.gradient(u,dy,dx)
     dvdy,dvdx = np.gradient(v,dy,dx)
     for i in range(ydim):
         for j in range(xdim):
-            if (dudx[i,j] and dudy[i,j] and dvdx[i,j] and dvdy[i,j] and u[i,j] and v[i,j]) is not np.ma.masked:    
+            if (dudx[i,j] and dudy[i,j] and dvdx[i,j] and dvdy[i,j] and u[i,j] and v[i,j]) is not np.nan:    
                 Utemp = np.array([u[i, j], v[i, j]])
                 U = Utemp/np.linalg.norm(Utemp)
                 Grad = np.array([[dudx[i, j], dudy[i, j]], [dvdx[i, j], dvdy[i, j]]])
                 S = 0.5*(Grad + np.transpose(Grad))
                 s1[i,j] = 3600*np.min(np.linalg.eig(S)[0])
             else:
-                s1[i,j] = np.ma.masked
+                s1[i,j] = np.nan
     corr = []
     for h in range(35):
         f_le = s1_wind[h]
@@ -79,7 +78,6 @@ for k, species in enumerate(list_):
         denominator = den1*den2;
         corr.append(numerator/denominator)
     corr1.append(corr)
-
 
 t=-2
 corr2 = []
@@ -155,11 +153,4 @@ for k, species in enumerate(list_):
 z=loadmat('flow_map_gridint_3d_q1.mat')['zz'][0,0,:]
 
 np.savez("correlation",c1=corr1,c2=corr2,c3=corr3,z=z)
-
-"""               
-    plt.close('all')
-    plt.figure()
-    x=np.linspace(0,34,35)
-    plt.plot(corr,z)
-    plt.savefig('{}.png'.format(species))
-"""
+#"""
