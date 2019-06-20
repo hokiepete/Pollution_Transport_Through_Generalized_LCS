@@ -1,8 +1,7 @@
 from netCDF4 import Dataset
 from hdf5storage import loadmat
 import numpy as np
-import matplotlib.pyplot as plt
-list_ = ['H2O']#,'SO2','ANAJ','NO2','O3','ASO4J','ANH4J']
+list_ = ['H2O','SO2','ANAJ','NO2','O3','ASO4J','ANH4J']
 dx = 300
 dy = 300
 
@@ -22,7 +21,7 @@ for h in range(35):
     dvdy,dvdx = np.gradient(v,dy,dx)
     for i in range(ydim):
         for j in range(xdim):
-            if (dudx[i,j] and dudy[i,j] and dvdx[i,j] and dvdy[i,j] and u[i,j] and v[i,j]) is not np.nan:    
+            if (dudx[i,j] and dudy[i,j] and dvdx[i,j] and dvdy[i,j] and u[i,j] and v[i,j]) is not np.ma.masked:    
                 Utemp = np.array([u[i, j], v[i, j]])
                 U = Utemp/np.linalg.norm(Utemp)
                 Grad = np.array([[dudx[i, j], dudy[i, j]], [dvdx[i, j], dvdy[i, j]]])
@@ -49,7 +48,7 @@ for k, species in enumerate(list_):
     dvdy,dvdx = np.gradient(v,dy,dx)
     for i in range(ydim):
         for j in range(xdim):
-            if (dudx[i,j] and dudy[i,j] and dvdx[i,j] and dvdy[i,j] and u[i,j] and v[i,j]) is not np.nan:    
+            if (dudx[i,j] and dudy[i,j] and dvdx[i,j] and dvdy[i,j] and u[i,j] and v[i,j]) is not np.ma.masked:    
                 Utemp = np.array([u[i, j], v[i, j]])
                 U = Utemp/np.linalg.norm(Utemp)
                 Grad = np.array([[dudx[i, j], dudy[i, j]], [dvdx[i, j], dvdy[i, j]]])

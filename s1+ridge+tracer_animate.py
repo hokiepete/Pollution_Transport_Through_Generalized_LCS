@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import calendar
 import time
+import os
+os.environ['PROJ_LIB'] = r'C:\Users\pnola\Anaconda3\Lib\site-packages\pyproj\data'
 from mpl_toolkits.basemap import Basemap
 from scipy.interpolate import interp1d
 plt.close('all')
@@ -102,7 +104,7 @@ m = Basemap(llcrnrlon=lon_min,
             urcrnrlon=lon_max,
             urcrnrlat=lat_max,
             projection='merc',
-            resolution = 'c',
+            resolution = 'i',
             area_thresh=1000.,
             )
 '''
@@ -158,8 +160,8 @@ for t in range(time.shape[0]):
     #cs=m.contourf(lon,lat,ftle[-t,:,:],levels=np.linspace(ftle[-t,:,:].min(axis=None),ftle[-t,:,:].max(axis=None),301),latlon=True)
     #plt.title("{0}".format(time[-t]),fontsize=18)
     hrs, mins = np.divmod(t*10,60)
-    plt.figure(figsize=[16,12])
-    m.contourf(lon_vel,lat_vel,s1[t,:,:],levels=np.linspace(s1[t,:,:].min(axis=None),s1[t,:,:].max(axis=None),301),latlon=True)
+    plt.figure(figsize=[16/2,12/2])
+    #m.contourf(lon_vel,lat_vel,s1[t,:,:],levels=np.linspace(s1[t,:,:].min(axis=None),s1[t,:,:].max(axis=None),301),latlon=True)
     #m.contourf(lon_vel,lat_vel,-s1[t,:,:],levels=np.linspace(-s1[t,:,:].max(axis=None),-s1[t,:,:].min(axis=None),301),latlon=True)
     for i in range(len(attracting_ridges_lat)):
         x = [elem for elem in attracting_ridges_lon[i][:,t].data if elem < 99999]
@@ -171,7 +173,7 @@ for t in range(time.shape[0]):
         y = [elem for elem in repelling_ridges_lat[i][:,t].data if elem < 99999]
         #m.plot(repelling_ridges_lon[i][:,t],repelling_ridges_lat[i][:,t],c='r',latlon=True)
         m.plot(x,y,c='r',latlon=True)
-    m.scatter(t_lon[:,t],t_lat[:,t],latlon=True)
+    m.scatter(t_lon[:,t],t_lat[:,t],latlon=True,color='deepskyblue')
     plt.title('{0:02d} hrs, {1:02d} mins'.format(int(hrs),int(mins)))
     
     m.drawcoastlines()
@@ -184,13 +186,12 @@ for t in range(time.shape[0]):
     
     plt.close('all')
 #'''
-    
+"""    
 import winsound
 frequency = 800  # Set Frequency To 2500 Hertz
 duration = 500  # Set Duration To 1000 ms == 1 second
 winsound.Beep(frequency, duration)
     
-"""
 ncfile="SE_ridge.nc"
 root = Dataset(ncfile,'r') #read the data
 vars = root.variables #dictionary, all variables in dataset\
