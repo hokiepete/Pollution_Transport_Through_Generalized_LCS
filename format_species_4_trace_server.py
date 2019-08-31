@@ -27,8 +27,10 @@ for species in ['NO2','SO2','O3','ANH4J','ASO4J','ANAJ']:
     #Water Vapor Flux, Vertically Integrated
     u = vars['U'+species][:,1:-1,1:-1]
     v = vars['V'+species][:,1:-1,1:-1]
+    sp = np.mean(vars[species][:,:,1:-1,1:-1],axis=1)   
     lat_in = vars['XLAT'][0,1:-1,1:-1]
     lon_in = vars['XLONG'][0,1:-1,1:-1]
+    
     root.close()
     
     xin,yin = mf.lonlat2km(ref_lon,ref_lat,lon_in,lat_in,true_lat1,true_lat2)
@@ -43,14 +45,16 @@ for species in ['NO2','SO2','O3','ANH4J','ASO4J','ANAJ']:
     
     uout = np.empty([tdim,yodim*xodim])
     vout = np.empty([tdim,yodim*xodim])
+    spout = np.empty([tdim,yodim*xodim])
     
     for t in range(tdim):
         uout[t,:] = interpolate.griddata((yin.ravel(), xin.ravel()), u[t,:,:].ravel(),(yout.ravel(), xout.ravel()),method='cubic',fill_value=999)
         vout[t,:] = interpolate.griddata((yin.ravel(), xin.ravel()), v[t,:,:].ravel(),(yout.ravel(), xout.ravel()),method='cubic',fill_value=999)
+        spout[t,:] = interpolate.griddata((yin.ravel(), xin.ravel()), sp[t,:,:].ravel(),(yout.ravel(), xout.ravel()),method='cubic',fill_value=999)
     
     uout = np.reshape(uout, [tdim,yodim,xodim])
     vout = np.reshape(vout, [tdim,yodim,xodim])
-    
+    spout = np.reshape(spout, [tdim,yodim,xodim])
     
     dim = uout.shape
     timeout = np.arange(tdim)/23.0
@@ -67,6 +71,8 @@ for species in ['NO2','SO2','O3','ANH4J','ASO4J','ANAJ']:
     lons = dataset.createVariable('lon',np.float64,('lon',),fill_value=999)
     uo = dataset.createVariable('eastward_vel',np.float64,('time','lat','lon',),fill_value=999)
     vo = dataset.createVariable('northward_vel',np.float64,('time','lat','lon',),fill_value=999)
+    #This line for summer 2019 only.
+    sp = dataset.createVariable('species',np.float64,('time','lat','lon',),fill_value=999)
     lando = dataset.createVariable('land',np.int,('time','lat','lon',))
     
     
@@ -109,10 +115,17 @@ for species in ['NO2','SO2','O3','ANH4J','ASO4J','ANAJ']:
     vo.coordinates = 'Longitude Latitude datetime'
     vo[:] = vout
     
+    sp.standard_name = 'The species'
+    sp.long_name = 'The species'
+    sp.units = 'concentration'
+    sp.coordsys = 'geographic'
+    sp.positive = 'better question would be whats negative mean'
+    sp.coordinates = 'Longitude Latitude datetime'
+    sp[:] = spout
+    
     lando.standard_name = 'land'
     lando.units = 'Boolean'
     lando.coordinates = 'Longitude Latitude datetime'
     lando[:] = land
     
     dataset.close()
-
