@@ -11,26 +11,49 @@ grid_spacing = 12 #km
 tdim = 24
 xdim = 102
 ydim = 82
-
-for species in ['NO2','SO2','O3','ANH4J','ASO4J','ANAJ']:
+#'ANH4J',
+for species in ['Q']:#,'NO2','SO2','O3','ASO4J','ANAJ']:
+    #root = Dataset('wrf_species_2011_07_01','r')
+    #Wind Velocity
+    #u = vars['U'][:,height_level,:,:]
+    #v = vars['V'][:,height_level,:,:]
+    #Water Vapor Flux, Vertically Integrated
+    if species == 'Q':
+        root = Dataset('wrf_2011_07_01','r')
+        vars = root.variables
+        print(vars.keys())
+        u = vars['UQ_Q'][:,1:-1,1:-1]
+        v = vars['VQ_Q'][:,1:-1,1:-1]
+        #sp = np.mean(vars[species][:,:,1:-1,1:-1],axis=1)   
+        sp = vars['Q'][:,1:-1,1:-1]
+    else:
+        root = Dataset('wrf_2011_07_01_redux','r')
+        vars = root.variables
+        #u = vars['QU'+species][:,1:-1,1:-1]
+        #v = vars['QV'+species][:,1:-1,1:-1]
+        #sp = np.mean(vars[species][:,:,1:-1,1:-1],axis=1)   
+        sp = vars['Q'+species][:,1:-1,1:-1]
+        root.close()
+        root = Dataset('wrf_species_2011_07_01','r')
+        vars = root.variables
+        u = vars['U'+species][:,1:-1,1:-1]
+        v = vars['V'+species][:,1:-1,1:-1]
+    
+    root.close()
+    
     root = Dataset('wrf_species_2011_07_01','r')
+    vars = root.variables
+    print(u.max())
+    #u = vars['U'+species][:,1:-1,1:-1]
+    #v = vars['V'+species][:,1:-1,1:-1]
     cen_lat = getattr(root,'CEN_LAT')
     cen_lon = getattr(root,'CEN_LON')
     true_lat1 = getattr(root,'TRUELAT1')
     true_lat2 = getattr(root,'TRUELAT2')
     ref_lat = getattr(root,'MOAD_CEN_LAT')
     ref_lon = getattr(root,'STAND_LON')
-    vars = root.variables
-    #Wind Velocity
-    #u = vars['U'][:,height_level,:,:]
-    #v = vars['V'][:,height_level,:,:]
-    #Water Vapor Flux, Vertically Integrated
-    u = vars['U'+species][:,1:-1,1:-1]
-    v = vars['V'+species][:,1:-1,1:-1]
-    sp = np.mean(vars[species][:,:,1:-1,1:-1],axis=1)   
     lat_in = vars['XLAT'][0,1:-1,1:-1]
     lon_in = vars['XLONG'][0,1:-1,1:-1]
-    
     root.close()
     
     xin,yin = mf.lonlat2km(ref_lon,ref_lat,lon_in,lat_in,true_lat1,true_lat2)
@@ -61,7 +84,7 @@ for species in ['NO2','SO2','O3','ANH4J','ASO4J','ANAJ']:
     land = np.zeros(dim,dtype=int)
     
     print(dim)
-    dataset = Dataset('species_data_'+species+'.nc', mode='w', format='NETCDF4_CLASSIC') 
+    dataset = Dataset('redux_species_data_'+species+'.nc', mode='w', format='NETCDF4_CLASSIC') 
     lat = dataset.createDimension('lat',dim[1])
     lon = dataset.createDimension('lon',dim[2])
     time = dataset.createDimension('time', None)

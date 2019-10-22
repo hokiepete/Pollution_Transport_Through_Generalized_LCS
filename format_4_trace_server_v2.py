@@ -20,6 +20,10 @@ true_lat2 = getattr(root,'TRUELAT2')
 ref_lat = getattr(root,'MOAD_CEN_LAT')
 ref_lon = getattr(root,'STAND_LON')
 vars = root.variables
+
+if True:
+    mf.unstagger('a')
+
 #Wind Velocity
 uu = mf.unstagger(vars['U'][:,:,:,:],axis=3)
 vv = mf.unstagger(vars['V'][:,:,:,:],axis=2)
