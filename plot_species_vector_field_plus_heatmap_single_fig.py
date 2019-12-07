@@ -98,7 +98,8 @@ for time in [15]:
         lon,lat = np.meshgrid(lon,lat)
         print(lon.shape)
         #m.contourf(lon,lat,species,levels=np.linspace(np.min(species,axis=None),np.max(species,axis=None),301),latlon=True,cmap=matplotlib.cm.jet)
-        m.pcolormesh(lon,lat,species,latlon=True,cmap=matplotlib.cm.jet,shading='gouraud')
+        #m.pcolormesh(lon,lat,species,latlon=True,cmap=matplotlib.cm.jet,shading='gouraud')
+        m.pcolormesh(lon,lat,species,latlon=True,cmap='Greys',shading='gouraud')
         plt.annotate('{0}'.format(label[k]),xy=(0.03*m.urcrnrx,0.03*m.urcrnry),fontsize=7)
         #
         #cb.set_ticklabels(fmt)
@@ -115,7 +116,8 @@ for time in [15]:
         #ax.set_title("Time = {:d}:00 hrs".format(time))
         #else:
         #    ax.set_title("Time = {:d}".format(-k))
-        velquiver = m.quiver(lon[::downsamp,::downsamp],lat[::downsamp,::downsamp],u[::downsamp,::downsamp],v[::downsamp,::downsamp],latlon=True,color='gray')
+        #velquiver = m.quiver(lon[::downsamp,::downsamp],lat[::downsamp,::downsamp],u[::downsamp,::downsamp],v[::downsamp,::downsamp],latlon=True,color='gray')
+        velquiver = m.quiver(lon[::downsamp,::downsamp],lat[::downsamp,::downsamp],u[::downsamp,::downsamp],v[::downsamp,::downsamp],latlon=True,color='k')
         #if k in [1,4]:
         qk = plt.quiverkey(velquiver, 0.75*m.urcrnrx, 1.05*m.urcrnry, 10, '$10 m/s$', labelpos='E', coordinates='data', fontproperties={'size': '6'})
         #else:
